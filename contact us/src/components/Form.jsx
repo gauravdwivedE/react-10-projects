@@ -20,7 +20,7 @@ const Form = () => {
         <div>
         <Button value={'Submit'} isOutline={false}/>
         </div>
-    {data && <div className='mt-10 bg-green-400 px-2 py-2 rounded flex items-center justify-between'><p> Form Submitted we will contact you soon {data?.name}</p><span onClick = {()=>setData(null)}className='text-4xl'><IoCloseOutline />
+    {data && <div className='mt-10 bg-green-400 px-2 py-2 rounded flex items-center justify-between'><p> Form has been Submitted, we will contact you soon {data?.name}</p><span onClick = {()=>setData(null)}className='text-4xl'><IoCloseOutline />
     </span></div>}
     </form>
     </>

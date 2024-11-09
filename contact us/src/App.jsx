@@ -21,8 +21,8 @@ const App = () => {
         <div className="left h-full w-1/2 flex justify-center items-center">
         <Form/>
         </div>
-        <div className="right flex-1 flex justify-center items-center">
-          <img className = 'h-[60%] w-[60%]' src="./vite.svg"/>
+        <div className="right flex-1 flex justify-end items-center">
+          <img className = 'h-[60%] w-[60%]' src="./react.svg"/>
         </div>
       </div>
       </div>

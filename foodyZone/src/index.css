@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media(max-width:800px){
+.filter-area{
+    flex-direction: column;
+    gap:12px
+}
+.cards-con{
+    justify-content: center;
+}
+.card{
+    width: 100%;
+}
+}
