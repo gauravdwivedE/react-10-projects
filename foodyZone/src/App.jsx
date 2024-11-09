@@ -19,7 +19,7 @@ const fetchFood = async() =>{
       setFoodsData(data.data)
       setLoading(false)
     }catch(e){
-      setError("Unable to fetch data reload and try again")
+      setError("Unable to fetch data reload and try again or go to server directory and run command 'npm run server'")
     }
 }
 useEffect(() => {
