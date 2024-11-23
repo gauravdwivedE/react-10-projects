@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {NavLink} from 'react-router-dom'
 import Login from './Login';
+import { AuthContext } from '../context/AuthProvider';
+import Logout from './Logout';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Nav = () => {
+
+  const {auth} = useContext(AuthContext)
+
   const [sticky,setSticky] = useState(false)
   const [theme,setTheme] = useState(localStorage.getItem("theme")|| "light")
 
@@ -35,6 +43,7 @@ const Nav = () => {
   
   return (
     <>
+    <ToastContainer />
    <div className={`fixed top-0 left-0 right-0 max-w-screen-2xl mx-auto z-50 ${sticky && 'bg-base-200 duration-500 transition-all shadow-sm ease-in-out '}`}>
    <div className="navbar">
   <div className="navbar-start">
@@ -117,8 +126,12 @@ const Nav = () => {
   </svg>
 </label>
 {/* You can open the modal using document.getElementById('ID').showModal() method */}
-    <a className="px-5 py-[6px] bg-black text-white rounded cursor-pointer" onClick={()=>document.getElementById('my_modal_login').showModal()}>Login</a>
-  </div>
+  {
+  auth ?
+  <Logout/>
+  :<button className="px-5 py-[6px] bg-black text-white rounded cursor-pointer" onClick={()=>document.getElementById('my_modal_login').showModal()}>Login</button>
+  }
+   </div>
 </div>
    <Login/>
    </div>

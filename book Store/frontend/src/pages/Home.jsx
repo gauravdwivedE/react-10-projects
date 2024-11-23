@@ -3,6 +3,7 @@ import Banner from '../components/Banner';
 import CardList from '../components/CardList';
 import Footer from '../components/Footer';
 
+
 const Home = () => {
   return (
     <>

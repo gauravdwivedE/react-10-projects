@@ -1,11 +1,29 @@
-import React from 'react'
-import Signup from './Signup';
+import React, { useContext } from 'react'
 import {useForm} from 'react-hook-form'
+import axios from '../utils/axios';
+import { AuthContext } from '../context/AuthProvider';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { successFlash, errorFlash} from '../utils/Flash'
 
 const Login = () => {
-  const {register,handleSubmit,formState:{errors}} = useForm()
-  function submit(data){
-    console.log(data);
+  const navigate = useNavigate()
+  const {provideAuth}  = useContext(AuthContext)
+  const {register,handleSubmit,reset,formState:{errors}} = useForm()
+  async function submit(data){
+    try{
+      const res = await axios.post("/auth/login",data)
+      localStorage.setItem("accessToken",res.data.accessToken)
+      provideAuth()
+      reset()
+      document.getElementById('my_modal_login').close();
+      successFlash("LoggedIn successfully")
+      navigate("/")
+    }
+    catch(err){
+     reset()
+     if(!err.response) return  errorFlash(err.message)
+     errorFlash(err.response.data)
+    }
   }
 
   return (
@@ -46,8 +64,9 @@ const Login = () => {
       <button className='btn bg-pink-500 text-white mt-3'>Login</button>
       </form>
       <div className='text-end mt-3'>
-      <p>Not registered?  <span onClick={()=>document.getElementById('my_modal_signup').showModal()} className='text-pink-500 cursor-pointer hover:border-b-2 border-pink-500 '>Signup</span></p>
-      <Signup/>
+      <p>Not registered?  <NavLink to = {"/auth/signup"}
+        className='text-pink-500 cursor-pointer hover:border-b-2 border-pink-500 '>Signup</NavLink></p>
+      
       </div>
       </div>
     </dialog>

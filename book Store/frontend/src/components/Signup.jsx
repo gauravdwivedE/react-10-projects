@@ -1,22 +1,40 @@
-import React from 'react'
+import axios from '../utils/axios'
+import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { AuthContext } from '../context/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+import { successFlash,errorFlash } from '../utils/Flash'
 
-const signup = () => {
-  const {register,handleSubmit,formState:{errors}} = useForm()
+const Signup = () => {
+  const navigate = useNavigate()
+  const {provideAuth}  = useContext(AuthContext)
+  const {register,handleSubmit,reset,formState:{errors}} = useForm()
 
-  function submit(data){
-    console.log(data);
+  useEffect(()=>{
+    document.querySelector("#my_modal_login").close()
+  },[])
+
+  async function submit(data){
+    try{
+    const res = await axios.post("/auth/signup",data)
+    localStorage.setItem("accessToken",res.data.accessToken)
+    provideAuth()
+    reset()
+    successFlash("Signup successfully")
+    navigate("/")
+  }
+    catch(err){
+     if(!err.response) return  errorFlash(err.message)
+      errorFlash(err.response.data)
+    }
   }
   return (
-    <div className='text-left'>
-    <dialog id="my_modal_signup" className="modal">
-      <div className="modal-box">
-        <form method="dialog">
+  <>
+    <div className='flex justify-center h-screen items-center'>
+
+      <div className="modal-box w-[95%] max-w-[35rem] shadow-lg text-lg px-6">
           {/* if there is a button in form, it will close the modal */}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
         <h3 className="font-bold text-lg">Signup</h3>
-        {/* name */}
         <form onSubmit={handleSubmit(submit)} >
         <div className='mt-5 space-y-2'>
           <label htmlFor="name">Name</label><br />
@@ -43,19 +61,18 @@ const signup = () => {
            value: /^(?=.*[@$!%*?&]).{8,}$/,
            message:"Password must be at least 8 characters and include a special symbol"
           }
-          })}placeholder="enter password" id= "password" className = "w-full text-lg border-2 border-gray-300 px-2 py-[6px] rounded-lg outline-none  "type="text" />
+          })}placeholder="enter password" id= "password" className = "w-full text-lg border-[1px] border-gray-300 px-2 py-[6px] rounded-lg outline-none  "type="text" />
         {errors.password && <p className='text-red-400'>{errors.password.message}</p>}
         </div>
       <button className='btn bg-pink-500 text-white mt-3'>Signup</button>
       </form>
       <div className='mt-3'>
-        {/* closing the signup modal to show the login modal which is behind on it */}
-      <div className='w-full flex justify-end gap-1'>Have an account? <form method="dialog"><button className='text-pink-500 cursor-pointer hover:border-b-2 border-pink-500 '>Login</button></form></div>
+      <div className='w-full flex justify-end gap-1'>Have an account? <button onClick={()=>document.querySelector("#my_modal_login").showModal()} className='text-pink-500 cursor-pointer hover:border-b-2 border-pink-500 '>Login</button></div>
       </div>
       </div>
-    </dialog>
     </div>
+    </>
   )
 }
 
-export default signup
+export default Signup

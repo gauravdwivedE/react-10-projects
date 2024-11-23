@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Card from './Card';
+import axios from '../utils/axios'
+import {errorFlash} from '../utils/Flash'
 
 const Cards = () => {
     var settings = {
@@ -41,20 +43,35 @@ const Cards = () => {
           }
         ]
     };
+    const [freeBooks,setFreeBooks] = useState([])
+    const [books,setBooks] = useState([])
+
+    useEffect(()=>{
+     async function getBooks(){
+       try{
+        const res = await axios.get("/books")
+        setBooks(res.data)
+      }
+       catch(err){ 
+        errorFlash(err.message)
+       }   
+     }
+     getBooks()
+    },[])
+
+    useEffect(()=>{
+      const  filteredFreeBooks =  books.filter((item)=>item.category === 'Free')
+      setFreeBooks(filteredFreeBooks)
+    },[books])
 
   return (
     <>
+
     <div className='max-w-screen-2xl mx-auto px-6 py-10 mb-28'>
     <Slider {...settings}>
-    <Card/>
-    <Card/>
-    <Card/>
-    <Card/>
-    <Card/>
-    <Card/>
-    <Card/>
-    <Card/>
+     {freeBooks.map((item)=><Card key = {item._id} books={item}/>)}
       </Slider>
+
       </div>
     </>
   )
