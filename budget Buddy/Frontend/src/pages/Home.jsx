@@ -71,7 +71,9 @@ const Home = () => {
    }
    catch(err){
     if(!err.response){
-    errorFlash(err.message)}
+      errorFlash(err.message)}else{
+      errorFlash(err.response.data)
+    }
     setDataLoading(false)
   }
   }
