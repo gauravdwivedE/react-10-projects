@@ -2,7 +2,7 @@ import React from 'react'
 import bannerImage from '/bookBanner.png'
 const Banner = () => {
   return (
-    <div className='px-10 max-w-screen-2xl mx-auto flex flex-col md:flex-row p-2 my-10 mt-12 md:mt-44'>
+    <div className='px-10 max-w-screen-2xl mx-auto flex flex-col md:flex-row p-2 my-10 mt-12 md:mt-44 '>
         <div className='w-full md:w-1/2  order-2 md:order-1'>
         <div className='space-y-5 md:space-y-12 '>
         <h1 className='text-5xl font-semibold'>Hello, welcomes here to learn something <span className='text-pink-500'>new everyday</span></h1>
