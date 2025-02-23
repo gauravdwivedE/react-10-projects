@@ -38,7 +38,7 @@ const TopNav = () => {
       }
     }
     getBalance()
-  }),[loading]
+  },[loading])
 
   return (
     <>

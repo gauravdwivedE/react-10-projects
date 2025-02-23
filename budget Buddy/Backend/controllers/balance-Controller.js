@@ -14,7 +14,7 @@ module.exports.getBalance = async(req,res)=>{
       })
     
      const expenses = await expenseModel.find({user:id}).lean()
-     if(expenses && expenses.length == 0) return res.status(404).send("Expenses not found")
+     if(expenses && expenses.length == 0) return res.status(200).send({message:"Expenses not found",balance:0})
      
      let totalAmountExpended = 0
      expenses.forEach(expense => {
