@@ -7,7 +7,6 @@ import DBConnect from './configs/mongoose-connection.js';
 import booksRoute from './routes/books-Route.js'
 import userRoute from './routes/user-Route.js'
 app.use(cors())
-DBConnect()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
@@ -16,5 +15,6 @@ app.use("/auth",userRoute)
 
 const port = process.env.PORT || 3000
 app.listen(port,()=>{
+    DBConnect()
     console.log("App : Server is running on port",port);
 })
