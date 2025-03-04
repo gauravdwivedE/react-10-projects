@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "../../api/axios";
 import { setUser } from "@/store/reducer/authReducer";
 import { toast } from "sonner";
+import { Loader2 } from '@lucid-labs/react';
 
 const Navbar = () => {  
   const {user} = useSelector((state) => state.user)
@@ -30,6 +31,9 @@ const Navbar = () => {
   }
   return (
     <div className="flex justify-between  px-8 py-3 items-center">
+       <div className="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+      <Loader2 className="text-white animate-spin" size={50} />
+    </div>
       <h1 className="font-semibold text-2xl">Heir<span className="text-orange-700">ly</span></h1>
       <div className="flex items-center gap-10">
         <ul className="flex gap-8 cursor-pointer">
