@@ -15,9 +15,10 @@ const Navbar = () => {
   const {user} = useSelector((state) => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const [loading, setLoading] = React.useState(false)
   async function handleLogout() {
     try {
+        setLoading(true)
       const response = await axios.post('/user/logout')
       if(response.status === 200){
         toast.success(response.data.message)
@@ -28,12 +29,15 @@ const Navbar = () => {
     catch (err) {
       toast.error(err.response.data)
     }
+    finally{
+      setLoading(false)
+    }
   }
   return (
     <div className="flex justify-between  px-8 py-3 items-center">
-       <div className="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
-      <Loader2 className="text-white animate-spin" size={50} />
-    </div>
+      { loading &&  <div className="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+      <Loader2 className="text-white animate-spin" size={50} /> Logging out
+    </div> }
       <h1 className="font-semibold text-2xl">Heir<span className="text-orange-700">ly</span></h1>
       <div className="flex items-center gap-10">
         <ul className="flex gap-8 cursor-pointer">
