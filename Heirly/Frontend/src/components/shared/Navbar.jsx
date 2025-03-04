@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "../../api/axios";
 import { setUser } from "@/store/reducer/authReducer";
 import { toast } from "sonner";
-import { Loader2 } from '@lucid-labs/react';
+import { Loader2 } from 'lucide-react'
 
 const Navbar = () => {  
   const {user} = useSelector((state) => state.user)
