@@ -34,10 +34,9 @@ function Signup() {
       const response = await axios.post('/user/signup', data)
     
       if(response.status == 201) {
-        dispatch(setUser(response.data))
         reset()
-        toast.success("Signup successfully")
-        navigate("/")
+        toast.success("Signup successfully please login")
+        navigate("/login")
       }
     }
     catch(err){
