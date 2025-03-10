@@ -21,8 +21,8 @@ const Navbar = () => {
         setLoading(true)
       const response = await axios.post('/user/logout')
       if(response.status === 200){
-        toast.success(response.data.message)
         dispatch(setUser(null))
+        toast.success(response.data.message)
         navigate("/")
       }
     }
@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <div className="flex justify-between  px-8 py-3 items-center">
       { loading &&  <div className="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
-      <Loader2 className="text-white animate-spin" size={50} /> Logging out
+      <Loader2 className="text-white animate-spin" size={50} />
     </div> }
       <h1 className="font-semibold text-2xl">Heir<span className="text-orange-700">ly</span></h1>
       <div className="flex items-center gap-10">
