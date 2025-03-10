@@ -32,12 +32,9 @@ function Signup() {
 
       try{
       const response = await axios.post('/user/signup', data)
-    
-      if(response.status == 201) {
         reset()
         toast.success("Signup successfully please login")
         navigate("/login")
-      }
     }
     catch(err){
       toast.error(err.response.data)
